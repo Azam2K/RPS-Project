@@ -38,7 +38,6 @@ public Boolean deletePlayer(User deleteUser){//maybe change this into the game c
                 return true;
             }
         }
-return false;
     }
     passwordScanner.close();
     System.out.println("The user you're trying to delete doesn't exist");
