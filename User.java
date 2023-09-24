@@ -77,7 +77,6 @@ public class User {
                 + ", userWins=" + userWins + "]";
     }
 
-    
 }
 
 
