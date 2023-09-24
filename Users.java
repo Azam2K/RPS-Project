@@ -101,15 +101,13 @@ public void printPlayers(){//prints the players
 void getLeaderboard(){//top 10 leaderboard
     Collections.sort(myUsers);//this is sorting the players based on their wins, its using the comparable feature in our User File
 
-    System.out.println("Username" + " "  + " " +  " " + "Wins");
+    System.out.println("Username" + " "  + " " +  " " + "Wins");//header for our leaderboard
+
     for(User i : myUsers){
         System.out.println(i.getUserName() + " " + " " + " " + " " + " " + " " + " " + " " +  i.getUserWins());
     }
 
-    
-
-
 }
 
-    
+
 }
