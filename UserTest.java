@@ -73,8 +73,6 @@ assertEquals(11,u.getUserWins());
 
 //also working as intended
 assertEquals(20,u2.getUserWins());
-
-
 }
 
 }
