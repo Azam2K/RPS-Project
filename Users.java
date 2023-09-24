@@ -49,12 +49,21 @@ public Boolean deletePlayer(User deleteUser){//allows the user to delete their a
         if (deleteUser.getUserName().toLowerCase().equals(i.getUserName().toLowerCase())){
             System.out.println("Please enter your password to make sure you want to delete this account");
             if(i.getUserPassword().equals(passwordScanner.next())){
-                 System.out.println("Your account" +  " " + "'"+ i.getUserName() + "'" +  " has been deleted.");
+                System.out.println("Are you sure you want to delete your account? Y/N");
+                if (passwordScanner.next().charAt(0) == 'Y'){
+                     System.out.println("Your account" +  " " + "'"+ i.getUserName() + "'" +  " has been deleted.");
                 myUsers.remove(i);
                  passwordScanner.close();
                 return true;
+                }
+                else{
+                    return false;
+                }
             }
-            
+            else{
+                System.out.println("Incorrect Password");
+                return false;
+            }
         }
     }
     passwordScanner.close();
