@@ -1,4 +1,4 @@
-public class User {
+public class User implements Comparable<User> {
 
     private String userName;
     private String userPassword;
@@ -75,6 +75,18 @@ public class User {
     public String toString() {
         return "User [userName=" + userName + ", userPassword=" + userPassword + ", userScore=" + userScore
                 + ", userWins=" + userWins + "]";
+    }
+
+    @Override
+    public int compareTo(User o) {//This compareTo method sorts the userWins so that we can use it for our Leaderboard, it sorts from highest to lowest
+        if(this.getUserWins() > o.getUserWins()){
+            return -1;
+        }else if(this.getUserWins() == o.getUserWins()){
+            return 0;
+        }
+        else{
+            return 1;
+        }
     }
 
 }
