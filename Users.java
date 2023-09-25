@@ -71,9 +71,9 @@ public Boolean deletePlayer(User deleteUser){//allows the user to delete their a
     return false;
 }
 
-public User findUser(String playerName){//finds a user in our players list, if it isn't found, it'll return null
+public User findUser(User findUser){//finds a user in our players list, if it isn't found, it'll return null
     for (User i : myUsers){
-        if (i.getUserName().equals(playerName)){
+        if (i.getUserName().toLowerCase().equals(findUser.getUserName().toLowerCase())){
             return i;
         }
     }
@@ -104,19 +104,31 @@ public void savePlayers(){//saves the players to the txt file using a filewriter
 }
 
 public void printPlayers(){//prints the players
-    for (User i : myUsers){
-        System.out.println(i);
+    if (myUsers.size() == 0){
+        System.out.println("Currently no users exist");
     }
+    else{
+        for (User i : myUsers){
+            System.out.println(i);
+         }
+    }
+    
 }
 
 void getLeaderboard(){//top 10 leaderboard
     Collections.sort(myUsers);//this is sorting the players based on their wins, its using the comparable feature in our User File
 
-    System.out.println("Username" + " "  + " " +  " " + "Wins");//header for our leaderboard
+    if (myUsers.size() == 0){
+        System.out.println("No players currently exist, unable to display leaderboard.");
+    }
+    else{
+         System.out.println("Username" + " "  + " " +  " " + "Wins");//header for our leaderboard
 
     for(User i : myUsers){
         System.out.println(i.getUserName() + " " + " " + " " + " " + " " + " " + " " + " " +  i.getUserWins());
     }
+    }
+   
 
 }
 
