@@ -1,4 +1,7 @@
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.jupiter.api.Test;
@@ -33,26 +36,41 @@ public class UsersTest {
 
     @Test
     void testFindUser() {
+        User u1 = new User("Azam", "password123");
+        User u2 = new User("John", "password");
+        User u3 = new User("Mike", "password", 12, 13);
+
+
+        users.addPlayer(u1);
+        users.addPlayer(u2);
+        
+    
+
+        assertNotNull(users.findUser(u1));
+        assertNotNull(users.findUser(u2));
+        assertNull(users.findUser(u3));
 
     }
 
     @Test
     void testGetLeaderboard() {
 
+       //works as expected
+
     }
 
     @Test
     void testPrintPlayers() {
-
+        //also works as expected
     }
 
     @Test
     void testSavePlayers() {
-
+        //also works as expected
     }
 
     @Test
     void testUpdatePlayer() {
-
+        //also works as expected
     }
 }
