@@ -141,6 +141,9 @@ void logIn(){//prompts user to enter enter their login details and has various c
 }
 
 void playGame(){//add spacing after user enters their choice and it shows the choice made by user and computer for readability + comments + changes
+                //also add a counter for how many games the computer has won in its career, e.g. "the computer's record is 9/13"
+                //maybe add record for user to see their own stats, add this as an option in the menu
+                //this menu could display (total correct moves) (total wrong moves) (total wins) (total losses)
 
 String userChoice;
 String computersChoice;
@@ -208,9 +211,10 @@ do {
     System.out.println("Congratulations, you have won!");
     System.out.println(currentPlayer.getUserName() + ": " + currentPlayer.getUserScore() + " " + "Computer: " +   computerScore);
     currentPlayer.setUserScore(0);//setting to 0 so that the userScore goes back to 0 and can count their score in the game again should they wish to play again
+    currentPlayer.incrementUserWins();
     computerScore = 0;//setting to 0 so that the userScore goes back to 0 and can count their score in the game again should they wish to play again
   }
-  else if (currentPlayer.getUserScore() > computerScore){
+  else if (currentPlayer.getUserScore() < computerScore){
     System.out.println("Unlucky, you have lost");
     System.out.println(currentPlayer.getUserName() + ": " +  currentPlayer.getUserScore() + " " + "Computer: " +   computerScore);
     currentPlayer.setUserScore(0);//setting to 0 so that the userScore goes back to 0 and can count their score in the game again should they wish to play again
@@ -222,6 +226,9 @@ do {
     currentPlayer.setUserScore(0);//setting to 0 so that the userScore goes back to 0 and can count their score in the game again should they wish to play again
     computerScore = 0;//setting to 0 so that the userScore goes back to 0 and can count their score in the game again should they wish to play again
   }
+
+  users.updatePlayer(currentPlayer);
+  users.savePlayers();
 
   
     //scanner here for user input
