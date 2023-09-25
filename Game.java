@@ -100,38 +100,42 @@ void createAccount(){//lets the user create a fresh account, has various validat
     currentPlayer = new User(uName, uPassword);//creates the user ready to play the game
     users.addPlayer(currentPlayer);//adds user to our lists of users, its official here
     users.savePlayers();//saves the user to the Players.txt file
+    playGame();//then it'll call the playGame function which handles the logic of the game
         
     }
 
 
-void logIn(){//if password attempt == 5, delete account
-    String uName;
-    String uPassword;
+void logIn(){//prompts user to enter enter their login details and has various checks that the user actually exists and if their password is correct
+    String uName;//local variables to hold the username from the user to load the user object
+    String uPassword;// local varuable to hold the password from the user to load the user object
 
-    System.out.println("Please enter your username");
+    System.out.println("Please enter your username");//prompts user to enter their username
     System.out.print(">");
-    uName = userScanner.next();
+    uName = userScanner.next();//reads in the username from the user
 
-    System.out.println(" ");
+    System.out.println(" ");//for readability
 
    
-    System.out.println("Please enter your password");
+    System.out.println("Please enter your password");//promts the user to enter their password
     System.out.print(">");
-    uPassword = userScanner.next();
+    uPassword = userScanner.next();//reads in the password from the user
 
-    if (users.findUser(uName) == null || !users.findUser(uName).getUserPassword().equals(uPassword)){
+    if (users.findUser(uName) == null || !users.findUser(uName).getUserPassword().equals(uPassword)){//this checks if either the user doesn't exist or the password was wrong
         System.out.println("An invalid password or username was entered, please try again");
-        logIn();
+        logIn();//promts them back to the login to try again
         
     }
-    else{
-        currentPlayer = users.findUser(uName);
-        System.out.println("Welcome " + currentPlayer.getUserName());
-
+    else{//otherwise if its correct, our current user is the one we just found from the findUser method in Users
+        currentPlayer = users.findUser(uName);//we set the current player to the correct one
+        System.out.println("Welcome " + currentPlayer.getUserName());//we issue a welecome message to confirm that they've logged in successfully
+        playGame();//then it'll call the playGame function which handles the logic of the game
     }
 
 }
 
+void playGame(){
+
+}
 
 public static void main(String[] args) {
     Game g = new Game();
