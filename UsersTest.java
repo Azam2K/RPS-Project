@@ -46,9 +46,9 @@ public class UsersTest {
         
     
 
-        assertNotNull(users.findUser(u1));
-        assertNotNull(users.findUser(u2));
-        assertNull(users.findUser(u3));
+        assertNotNull(users.findUser(u1.getUserName()));
+        assertNotNull(users.findUser(u2.getUserName()));
+        assertNull(users.findUser(u3.getUserName()));
 
     }
 
