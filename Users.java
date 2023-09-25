@@ -71,9 +71,9 @@ public Boolean deletePlayer(User deleteUser){//allows the user to delete their a
     return false;
 }
 
-public User findUser(User findUser){//finds a user in our players list, if it isn't found, it'll return null
+public User findUser(String username){//finds a user in our players list, if it isn't found, it'll return null
     for (User i : myUsers){
-        if (i.getUserName().toLowerCase().equals(findUser.getUserName().toLowerCase())){
+        if (i.getUserName().toLowerCase().equals(username.toLowerCase())){
             return i;
         }
     }
