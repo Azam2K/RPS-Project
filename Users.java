@@ -115,21 +115,20 @@ public void printPlayers(){//prints the players
     
 }
 
-void getLeaderboard(){//top 10 leaderboard
+void getLeaderboard() {
     Collections.sort(myUsers);//this is sorting the players based on their wins, its using the comparable feature in our User File
 
-    if (myUsers.size() == 0){
+    if (myUsers.size() == 0) {
         System.out.println("No players currently exist, unable to display leaderboard.");
-    }
-    else{
-         System.out.println("Username" + " "  + " " +  " " + "Wins");//header for our leaderboard
+    } 
+    else {
+        System.out.println("Username       Wins"); // Adjust the spacing as needed
 
-    for(User i : myUsers){
-        System.out.println(i.getUserName() + " " + " " + " " + " " + " " + " " + " " + " " +  i.getUserWins());
+        for (User i : myUsers) {
+            // Use String.format to align wins properly
+            System.out.println(String.format("%-15s %d", i.getUserName(), i.getUserWins()));
+        }
     }
-    }
-   
-
 }
 
 
