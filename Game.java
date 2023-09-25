@@ -1,13 +1,19 @@
 import java.util.Scanner;
+import java.util.Random;
 public class Game {
     
 private Users users;  //call to users class so we can use its methods
 private Scanner userScanner; //setting up our scanner for the users input
 User currentPlayer;//for our current player that is playing
+private String[] computerChoice;//array for our computer to pick from to battle the user
+private int max_score = 0;
+private Random rand;
+private int computerScore = 0;
 
 
 public Game(){//constructor
-
+    rand = new Random();
+    computerChoice =  new String[]{"rock","paper","scissors"};//initialising our array from which the computer will randomly pick from
     users = new Users();//initialising our users class
     userScanner = new Scanner(System.in); //initialising our scanner ready for users input
 
@@ -106,6 +112,7 @@ void createAccount(){//lets the user create a fresh account, has various validat
 
 
 void logIn(){//prompts user to enter enter their login details and has various checks that the user actually exists and if their password is correct
+    System.out.println(" ");
     String uName;//local variables to hold the username from the user to load the user object
     String uPassword;// local varuable to hold the password from the user to load the user object
 
@@ -121,19 +128,110 @@ void logIn(){//prompts user to enter enter their login details and has various c
     uPassword = userScanner.next();//reads in the password from the user
 
     if (users.findUser(uName) == null || !users.findUser(uName).getUserPassword().equals(uPassword)){//this checks if either the user doesn't exist or the password was wrong
+        System.out.println(" ");
         System.out.println("An invalid password or username was entered, please try again");
         logIn();//promts them back to the login to try again
         
     }
     else{//otherwise if its correct, our current user is the one we just found from the findUser method in Users
         currentPlayer = users.findUser(uName);//we set the current player to the correct one
-        System.out.println("Welcome " + currentPlayer.getUserName());//we issue a welecome message to confirm that they've logged in successfully
         playGame();//then it'll call the playGame function which handles the logic of the game
     }
 
 }
 
-void playGame(){
+void playGame(){//add spacing after user enters their choice and it shows the choice made by user and computer for readability + comments + changes
+
+String userChoice;
+String computersChoice;
+System.out.print("\033[H\033[2J");  //to clear the output
+System.out.flush(); //to clear the output
+System.out.println("Welcome " + currentPlayer.getUserName());//we issue a welecome message to confirm that they've logged in successfully
+System.out.println(" ");
+
+
+System.out.println("Remember you can quit at any time by typing 'exit'");
+System.out.println(" ");
+System.out.println("Please enter your choice: 'rock' 'paper' 'scissors'");
+System.out.println(" ");
+
+do { 
+   System.out.print(currentPlayer.getUserName() +  "> " );
+    
+    userChoice = userScanner.next().toLowerCase();//taking the users choice and converting it to lowercase to avoid any errors
+    computersChoice = computerChoice[rand.nextInt(3)];//will select randomly for the array indexes of 0-2, which will randomly output either rock paper or scissors
+
+    if (userChoice.equals("rock") && computersChoice.equals("scissors")){
+        currentPlayer.incrementUserScore();
+        System.out.println(currentPlayer.getUserName() + " picked " + userChoice + " |" +  " Computer picked " + computersChoice + " (" + currentPlayer.getUserName() + ": " +  currentPlayer.getUserScore() + " " + "Computer " +   computerScore + ")" );
+    
+    
+    }
+    else if (userChoice.equals("rock") && computersChoice.equals("paper")){
+        computerScore++;
+        System.out.println(currentPlayer.getUserName() + " picked " + userChoice + " |" +  " Computer picked " + computersChoice + " (" + currentPlayer.getUserName() + ": " +  currentPlayer.getUserScore() + " " + "Computer " +   computerScore + ")" );
+
+
+    }
+    else if(userChoice.equals("paper") && computersChoice.equals("scissors")){
+        computerScore++;
+        System.out.println(currentPlayer.getUserName() + " picked " + userChoice + " |" +  " Computer picked " + computersChoice + " (" + currentPlayer.getUserName() + ": " +  currentPlayer.getUserScore() + " " + "Computer " +   computerScore + ")" );
+
+
+    }
+    else if(userChoice.equals("paper") && computersChoice.equals("rock")){
+        currentPlayer.incrementUserScore();
+        System.out.println(currentPlayer.getUserName() + " picked " + userChoice + " |" +  " Computer picked " + computersChoice + " (" + currentPlayer.getUserName() + ": " +  currentPlayer.getUserScore() + " " + "Computer " +   computerScore + ")" );
+
+    }
+    else if(userChoice.equals("scissors") && computersChoice.equals("rock")){
+        computerScore++;
+        System.out.println(currentPlayer.getUserName() + " picked " + userChoice + " |" +  " Computer picked " + computersChoice + " (" + currentPlayer.getUserName() + ": " +  currentPlayer.getUserScore() + " " + "Computer " +   computerScore + ")" );
+
+
+    }
+    else if(userChoice.equals("scissors") && computersChoice.equals("paper")){
+        currentPlayer.incrementUserScore();
+        System.out.println(currentPlayer.getUserName() + " picked " + userChoice + " |" +  " Computer picked " + computersChoice + " (" + currentPlayer.getUserName() + ": " +  currentPlayer.getUserScore() + " " + "Computer " +   computerScore + ")" );
+
+
+    }
+    else if (userChoice.equals(computersChoice)){
+    System.out.println(currentPlayer.getUserName() + " picked " + userChoice + " |" +  " Computer picked " + computersChoice + " (" + currentPlayer.getUserName() + ": " +  currentPlayer.getUserScore() + " " + "Computer " +   computerScore + ")" );
+
+    
+       
+    }
+  } while (!userChoice.equals("exit"));
+
+  if (currentPlayer.getUserScore() > computerScore){
+    System.out.println("Congratulations, you have won!");
+    System.out.println(currentPlayer.getUserName() + ": " + currentPlayer.getUserScore() + " " + "Computer: " +   computerScore);
+    currentPlayer.setUserScore(0);//setting to 0 so that the userScore goes back to 0 and can count their score in the game again should they wish to play again
+    computerScore = 0;//setting to 0 so that the userScore goes back to 0 and can count their score in the game again should they wish to play again
+  }
+  else if (currentPlayer.getUserScore() > computerScore){
+    System.out.println("Unlucky, you have lost");
+    System.out.println(currentPlayer.getUserName() + ": " +  currentPlayer.getUserScore() + " " + "Computer: " +   computerScore);
+    currentPlayer.setUserScore(0);//setting to 0 so that the userScore goes back to 0 and can count their score in the game again should they wish to play again
+    computerScore = 0;//setting to 0 so that the userScore goes back to 0 and can count their score in the game again should they wish to play again
+  }
+  else{
+    System.out.println("It was a draw!");
+    System.out.println(currentPlayer.getUserName() + ": " +  currentPlayer.getUserScore() + " " + "Computer: " +   computerScore);
+    currentPlayer.setUserScore(0);//setting to 0 so that the userScore goes back to 0 and can count their score in the game again should they wish to play again
+    computerScore = 0;//setting to 0 so that the userScore goes back to 0 and can count their score in the game again should they wish to play again
+  }
+
+  
+    //scanner here for user input
+    //randomly select from array of ["rock","paper","scissors"]
+    //if conditions
+    //increment userwins at the end
+    //increment userscore in realtime
+     //make sure to update player at the end
+    //make sure to saveplayers at the end
+   
 
 }
 
